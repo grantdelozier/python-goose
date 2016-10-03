@@ -38,8 +38,10 @@ class TitleExtractor(BaseExtractor):
         # check if we have the site name in opengraph data
         if "site_name" in self.article.opengraph.keys():
             site_name = self.article.opengraph['site_name']
-            # remove the site name from title
-            title = title.replace(site_name, '').strip()
+            # remove the site name from title only if title is different
+            # from site name
+            if title.strip() != site_name.strip():
+                title = title.replace(site_name, '').strip()
 
         # try to remove the domain from url
         if self.article.domain:
